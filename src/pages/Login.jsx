@@ -1,9 +1,11 @@
 import {useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from '../api/axios'
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
     const navigate = useNavigate();
+    const {login} = useAuth();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -28,12 +30,9 @@ function Login() {
 
         try{
             const res = await API.post('/auth/login', formData);
-            console.log('Logged in:', res.data);
 
-            // Save token
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', JSON.stringify(res.data));
-
+            login(res.data);
+            
             navigate('/dashboard');
         }catch(err){
             setError(err.response?.data?.message || 'Something went wrong');

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 
 function Register() {
   const navigate = useNavigate();
+  const {login} = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,11 +31,8 @@ function Register() {
 
     try {
       const res = await API.post("/auth/register", formData);
-      console.log("Registered:", res.data);
 
-      // Save token
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data));
+      login(res.data);
 
       navigate("/dashboard"); //redirect after success
     } catch (err) {
