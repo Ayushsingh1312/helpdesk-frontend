@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar(){
@@ -19,6 +19,11 @@ function Navbar(){
                 <span className="bg-blue-800 px-2 py-1 rounded text-xs uppercase">
                     {user?.role}
                 </span>
+
+                    <Link to="/tickets/new"
+                    className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
+                    >New Ticket</Link>
+
                 <button
                     onClick={handleLogout}
                     className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
