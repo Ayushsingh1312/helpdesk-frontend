@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateTicket from "./pages/CreateTicket";
+import TicketDetail from "./pages/TicketDetail";
 
 function App() {
   return (
@@ -26,6 +27,14 @@ function App() {
             <CreateTicket />
           </ProtectedRoute>
         }
+        />
+        <Route 
+          path="/tickets/:id"
+          element = {
+            <ProtectedRoute>
+              <TicketDetail />
+            </ProtectedRoute>
+          }
         />
     </Routes>
   );

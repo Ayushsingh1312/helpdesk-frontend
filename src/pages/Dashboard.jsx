@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import API from "../api/axios";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [tickets, setTickets] = useState([]);
@@ -29,11 +30,13 @@ function Dashboard() {
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-4">My Tickets</h2>
         {tickets.map((ticket) => (
-          <div key={ticket._id} className="bg-white p-4 rounded shadow mb-3">
+          <Link to={`/tickets/${ticket._id}`}>
+            <div key={ticket._id} className="bg-white p-4 rounded shadow mb-3">
             <h3 className="font-bold">{ticket.title}</h3>
             <p>Status: {ticket.status}</p>
             <p>Priority: {ticket.priority}</p>
           </div>
+          </Link>
         ))}
       </div>
     </div>
