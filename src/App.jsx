@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateTicket from "./pages/CreateTicket";
 import TicketDetail from "./pages/TicketDetail";
+import AdminRoute from "./components/AdminRoute";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -34,6 +36,14 @@ function App() {
             <ProtectedRoute>
               <TicketDetail />
             </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/admin"
+          element = {
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
           }
         />
     </Routes>

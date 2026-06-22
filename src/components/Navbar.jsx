@@ -31,6 +31,15 @@ function Navbar(){
                     Logout
                 </button>
             </div>
+
+            {user?.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  className="bg-purple-500 px-4 py-2 rounded hover:bg-purple-600"
+                >
+                    Admin Panel
+                </Link>
+            )}
         </nav>
     );
 }
