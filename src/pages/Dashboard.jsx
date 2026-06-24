@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import API from "../api/axios";
 import { Link } from "react-router-dom";
+import Badge from "../components/Badge";
 
 function Dashboard() {
   const [tickets, setTickets] = useState([]);
@@ -45,16 +46,16 @@ function Dashboard() {
         <h2 className="text-2xl font-bold mb-4">My Tickets</h2>
 
         {/* Search + Filter Row */}
-        <div className="flex gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mb-6">
           <input
             type="text"
-            placeholder="Search tickets..."
+            placeholder="🔍 Search tickets..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
               setPage(1); // reset after filter change
             }}
-            className="border p-2 w-full mb-4"
+            className="flex-1 min-w-48 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus-ring-blue-400"
           />
 
           <select
@@ -63,7 +64,7 @@ function Dashboard() {
               setStatus(e.target.value);
               setPage(1);
             }}
-            className="border p-2 rounded"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <option value="">All Status</option>
             <option value="open">Open</option>
@@ -77,7 +78,7 @@ function Dashboard() {
               setPriority(e.target.value);
               setPage(1);
             }}
-            className="border p-2 rounded"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <option value="">All Priority</option>
             <option value="low">Low</option>
@@ -94,12 +95,19 @@ function Dashboard() {
         ) : (
           tickets.map((ticket) => (
             <Link key={ticket._id} to={`/tickets/${ticket._id}`}>
-              <div
-                className="bg-white p-4 rounded shadow mb-3"
-              >
-                <h3 className="font-bold">{ticket.title}</h3>
-                <p>Status: {ticket.status}</p>
-                <p>Priority: {ticket.priority}</p>
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-3 hover:shadow-md transition cursor-pointer">
+                <div className="flex justify-between items-start">
+                  <h3 className="font-semibold text-gray-800">
+                    {ticket.title}
+                  </h3>
+                  <Badge type="priority" value={ticket.priority} />
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <Badge type="status" value={ticket.status} />
+                  <span className="text-xs text-gray-400">
+                    {new Date(ticket.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
             </Link>
           ))
@@ -108,8 +116,8 @@ function Dashboard() {
         {/* Pagination */}
         <div className="flex gap-2 mt-4">
           <button
-            onClick={() => setPage(page-1)}
-            disabled={page===1}
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
             className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
           >
             Previous
@@ -120,7 +128,7 @@ function Dashboard() {
           </span>
 
           <button
-            onClick={() => setPage(page+1)}
+            onClick={() => setPage(page + 1)}
             disabled={page === pagination.pages}
             className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
           >

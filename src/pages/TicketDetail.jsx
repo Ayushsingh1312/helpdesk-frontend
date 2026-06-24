@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
+import Badge from "../components/Badge";
 
 function TicketDetail() {
   const { id } = useParams();
@@ -46,44 +47,67 @@ function TicketDetail() {
   if (!ticket) return <p>Ticket not found</p>;
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="p-6 max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">{ticket.title}</h2>
-        <p>{ticket.description}</p>
-        <p>{ticket.status}</p>
-        <p>{ticket.priority}</p>
+      <div className="max-w-2xl mx-auto p-6">
+        {/* Ticket Card */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-3">
+            {ticket.title}
+          </h2>
+          <p className="text-gray-600 mb-4">{ticket.description}</p>
+          <div className="flex gap-3">
+            <Badge type="status" value={ticket.status} />
+            <Badge type="priority" value={ticket.priority} />
+          </div>
+        </div>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Comments</h3>
+        {/* Comments Section */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            💬 Comments ({comments.length})
+          </h3>
 
-        {comments.length === 0 ? (
-          <p>No comments yet.</p>
-        ) : (
-          comments.map((comment) => (
-            <div key={comment._id} className="bg-gray-100 p-3 rounded mb-3">
-              <p className="font-semibold">{comment.user?.name}</p>
-              <p>{comment.text}</p>
+          {comments.length === 0 ? (
+            <p className="text-gray-400 text-sm">
+              No comments yet. Be the first!
+            </p>
+          ) : (
+            comments.map((comment) => (
+              <div
+                key={comment._id}
+                className="border-b border-gray-100 pb-3 mb-3 last:border-0"
+              >
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-sm font-semibold text-gray-700">
+                    {comment.user?.name}
+                  </p>
+                  <small className="text-gray-400 text-xs">
+                    {new Date(comment.createdAt).toLocaleString()}
+                  </small>
+                </div>
+                <p className="text-gray-600 text-sm">{comment.text}</p>
+              </div>
+            ))
+          )}
 
-              <small>{new Date(comment.createdAt).toLocaleString()}</small>
-            </div>
-          ))
-        )}
-
-        <form onSubmit={handleAddComment}>
-          <textarea
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            placeholder="Write a comment..."
-            className="w-full border p-2 rounded"
-          />
-
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded mt-2"
-          >
-            Add comment
-          </button>
-        </form>
+          {/* Add Comment Form */}
+          <form onSubmit={handleAddComment} className="mt-4">
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Write a comment..."
+              rows="3"
+              className="w-full border border-gray-300 p-3 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+            />
+            <button
+              type="submit"
+              className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+            >
+              Add Comment
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

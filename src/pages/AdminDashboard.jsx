@@ -16,7 +16,7 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [ statsResponse, ticketsResponse ] = await Promise.all([
+        const [statsResponse, ticketsResponse] = await Promise.all([
           API.get("/dashboard/stats"),
           API.get("/tickets"),
         ]);
@@ -36,7 +36,7 @@ function AdminDashboard() {
     try {
       await API.put(`/tickets/${tickedId}`, { status: newStatus });
       setTickets(
-        tickets.map(t =>
+        tickets.map((t) =>
           t._id === tickedId ? { ...t, status: newStatus } : t
         )
       );
@@ -55,41 +55,49 @@ function AdminDashboard() {
         <h2 className="text-2xl font-bold mb-6">Admin Dashboard</h2>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white p-4 rounded shadow text-center">
-            <p className="text-3xl font-bold text-blue-600">
-              {stats.totalTickets}
-            </p>
-            <p className="text-gray-500">Total Tickets</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow text-center">
-            <p className="text-3xl font-bold text-blue-600">
-              {stats.openTickets}
-            </p>
-            <p className="text-gray-500">Open</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow text-center">
-            <p className="text-3xl font-bold text-blue-600">
-              {stats.inProgressTickets}
-            </p>
-            <p className="text-gray-500">In Progress</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow text-center">
-            <p className="text-3xl font-bold text-blue-600">
-              {stats.resolvedTickets}
-            </p>
-            <p className="text-gray-500">Resolved</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow text-center">
-            <p className="text-3xl font-bold text-blue-600">
-              {stats.highPriorityTickets}
-            </p>
-            <p className="text-gray-500">High Priority</p>
-          </div>
+        
+        {/* Total Tickets */}
+        <div className="bg-blue-50 border border-blue-200 p-4 rounded shadow text-center">
+          <p className="text-3xl font-bold text-blue-600">
+            {stats.totalTickets}
+          </p>
+          <p className="text-blue-700">Total Tickets</p>
+        </div>
+
+        {/* Open Tickets */}
+        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded shadow text-center">
+          <p className="text-3xl font-bold text-yellow-600">
+            {stats.openTickets}
+          </p>
+          <p className="text-yellow-700">Open</p>
+        </div>
+
+        {/* In Progress */}
+        <div className="bg-orange-50 border border-orange-200 p-4 rounded shadow text-center">
+          <p className="text-3xl font-bold text-orange-600">
+            {stats.inProgressTickets}
+          </p>
+          <p className="text-orange-700">In Progress</p>
+        </div>
+
+        {/* Resolved */}
+        <div className="bg-green-50 border border-green-200 p-4 rounded shadow text-center">
+          <p className="text-3xl font-bold text-green-600">
+            {stats.resolvedTickets}
+          </p>
+          <p className="text-green-700">Resolved</p>
+        </div>
+
+        {/* High Priority */}
+        <div className="bg-red-50 border border-red-200 p-4 rounded shadow text-center">
+          <p className="text-3xl font-bold text-red-600">
+            {stats.highPriorityTickets}
+          </p>
+          <p className="text-red-700">High Priority</p>
         </div>
 
         {/* Tickets List */}
-        <h3>All Tickets</h3>
+        <h3 className="mt-4 mb-4 font-bold text-2xl">All Tickets</h3>
         <div>
           {tickets.map((ticket) => (
             <div
