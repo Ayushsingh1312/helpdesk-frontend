@@ -1,16 +1,38 @@
-# React + Vite
+# HelpDesk Frontend 🎫
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based frontend for the HelpDesk Support Ticket System.
 
-Currently, two official plugins are available:
+## 🔗 Live Demo
+`https://helpdesk-frontend-wheat.vercel.app`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- **Framework:** React 18 + Vite
+- **Styling:** Tailwind CSS v4
+- **Routing:** React Router v6
+- **HTTP Client:** Axios
+- **State Management:** Context API
 
-## React Compiler
+## ✨ Features
+- JWT Authentication (Login/Register)
+- Protected & Role-based Routes
+- Create, View & Track Support Tickets
+- Real-time Comment System
+- Search, Filter & Pagination
+- Admin Dashboard with Stats
+- Responsive UI with status/priority badges
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Local Setup
+```bash
+git clone https://github.com/Ayushsingh1312/helpdesk-frontend
+cd helpdesk-frontend
+npm install
+```
 
-## Expanding the ESLint configuration
+Create `.env` file:
+```
+VITE_API_URL=http://localhost:5000/api
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
